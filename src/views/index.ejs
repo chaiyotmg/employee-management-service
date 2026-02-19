@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 flex flex-col items-center p-8 min-h-screen">
+
+    <div class="w-full max-w-[600px] flex flex-col gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="mt-0 mb-6 text-xl font-bold text-indigo-600 border-b-2 border-slate-100 pb-3">
+                ชื่อพนักงานคนแรก
+            </h2>
+            <div class="flex flex-col gap-2">
+                <label for="displayEmpName" class="font-medium text-sm text-slate-500">ชื่อพนักงานคนแรก:</label>
+                <input type="text" id="displayEmpName" name="empName"
+                    value="<%= firstEmployee ? firstEmployee.EmpName : '' %>"
+                    class="p-3 border border-slate-200 rounded-lg text-base outline-none bg-slate-50 text-slate-600 cursor-default"
+                    readonly>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="mt-0 mb-6 text-xl font-bold text-indigo-600 border-b-2 border-slate-100 pb-3">
+                กรอกข้อมูลพนักงานใหม่</h2>
+            <form id="addEmployeeForm" action="/add" method="POST" onsubmit="return validateForm()"
+                class="flex flex-col gap-5">
+                <div class="flex flex-col gap-2">
+                    <label for="empNum" class="font-medium text-sm text-slate-500">รหัสพนักงาน:</label>
+                    <input type="text" id="empNum" name="empNum" placeholder="5001"
+                        class="p-3 border border-slate-200 rounded-lg text-base transition-all outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="empName" class="font-medium text-sm text-slate-500">ชื่อพนักงาน:</label>
+                    <input type="text" id="empName" name="empName" placeholder="Example Name"
+                        class="p-3 border border-slate-200 rounded-lg text-base transition-all outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="postion" class="font-medium text-sm text-slate-500">ตำแหน่ง:</label>
+                    <select id="postion" name="postion"
+                        class="p-3 border border-slate-200 rounded-lg text-base transition-all outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 bg-white">
+                        <option value="">-- เลือกตำแหน่ง --</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Salesman">Salesman</option>
+                        <option value="Clerk">Clerk</option>
+                        <option value="Managing Director">Managing Director</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                    class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-base font-semibold cursor-pointer transition-all hover:bg-indigo-700 active:transform active:scale-[0.98] mt-2 shadow-md shadow-indigo-200">
+                    บันทึกข้อมูล
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const empNum = document.getElementById('empNum').value.trim();
+            const empName = document.getElementById('empName').value.trim();
+            const postion = document.getElementById('postion').value.trim();
+
+            if (!empNum) {
+                alert("คุณยังไม่ได้กรอกรหัสพนักงาน");
+                return false;
+            }
+            if (!empName) {
+                alert("คุณยังไม่ได้กรอกชื่อพนักงาน");
+                return false;
+            }
+            if (!postion) {
+                alert("คุณยังไม่ได้เลือกตำแหน่ง");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>
